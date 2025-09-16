@@ -1,0 +1,50 @@
+# Ignorar entornos virtuales dentro de tests
+venv/
+.venv/
+
+# Ignorar cachés de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar salidas de unittest/pytest
+*.log
+*.out
+*.err
+.coverage
+.cache/
+htmlcov/
+.tox/
+.pytest_cache/
+
+# Ignorar bases de datos de prueba
+*.sqlite3
+
+# Ignorar notebooks temporales en tests
+*.ipynb_checkpoints
+
+# Ignorar cualquier archivo generado
+*.tmp
+*.bak
+.DS_Store
+# Ignorar todo en tests/
+*
+# Pero sí incluir archivos .py con test_
+!test_*.py
+# Ignora todo por defecto
+*
+
+# Pero permite tus archivos de prueba
+!test_*.py
+!conftest.py
+
+# Venvs y cachés (por si los llegas a permitir arriba)
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+.DS_Store
