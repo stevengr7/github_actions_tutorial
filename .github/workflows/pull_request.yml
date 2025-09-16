@@ -45,6 +45,7 @@ jobs:
     name: Automerge
     needs: job1
     runs-on: ubuntu-latest
+    # se activa si el PR tiene al menos una etiqueta (cualquiera)
     if: ${{ github.event.pull_request.labels && github.event.pull_request.labels != '' }}
     steps:
       - name: Habilitar auto-merge
@@ -52,3 +53,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           merge-method: squash
+          pull-request-number: ${{ github.event.pull_request.number }}
+          repository: ${{ github.repository }}
