@@ -28,6 +28,7 @@ class Coleccion():
             album.descripcion = descripcion
             album.medio = medio
             session.commit()
+            
             return True
         else:
             return False

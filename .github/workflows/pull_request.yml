@@ -11,6 +11,12 @@ on:
       - reopened
       - unlocked
     branches: [ main ]
+
+permissions:
+  contents: write
+  pull-requests: write
+  statuses: read
+
 jobs:
   job1:
     name: Pruebas
@@ -34,13 +40,18 @@ jobs:
       run: |
           coverage run  -m unittest discover -s tests
           coverage report -m
+
   automerge:
     name: Automerge
     needs: job1
     runs-on: ubuntu-latest
+    # se activa si el PR tiene al menos una etiqueta (cualquiera)
+    if: ${{ github.event.pull_request.labels && github.event.pull_request.labels != '' }}
     steps:
-      - name: automerge
-        uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          MERGE_LABELS: ""
+      - name: Habilitar auto-merge
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          merge-method: squash
+          pull-request-number: ${{ github.event.pull_request.number }}
+          repository: ${{ github.repository }}
